@@ -32,7 +32,7 @@ from flask import make_response
 app = Flask(__name__)
 
 
-@app.route('', methods=['POST'])
+@app.route('https://secure-island-37034.herokuapp.com/webhook', methods=['POST'])
 def webhook():
     req = request.get_json(silent=True, force=True)
 
