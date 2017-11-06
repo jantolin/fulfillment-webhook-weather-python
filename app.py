@@ -13,7 +13,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 from __future__ import print_function
 from future.standard_library import install_aliases
 install_aliases()
@@ -50,13 +49,13 @@ def webhook():
 
 
 def processRequest(req):
-    if req.get("result").get("action") != "yahooWeatherForecast":
+    if req.get("result").get("action") != "eciStock":
         return {}
-    baseurl = "https://query.yahooapis.com/v1/public/yql?"
-    yql_query = makeYqlQuery(req)
-    if yql_query is None:
-        return {}
-    yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
+    baseurl = "http://api.elcorteingles.es/ecommerce/centres?eciReference=001008432115270003&locale=es_ES&provinceECI=28"
+    #yql_query = makeYqlQuery(req)
+    #if yql_query is None:
+    #    return {}
+    yql_url = baseurl
     result = urlopen(yql_url).read()
     data = json.loads(result)
     res = makeWebhookResult(data)
@@ -74,32 +73,30 @@ def makeYqlQuery(req):
 
 
 def makeWebhookResult(data):
-    query = data.get('query')
-    if query is None:
+    provinces_eci = data.get('provinces_eci')
+    if province_eci is None:
         return {}
 
-    result = query.get('results')
-    if result is None:
+    province_name = query.get('province_name')
+    if province_name is None:
         return {}
 
-    channel = result.get('channel')
-    if channel is None:
+    stores = result.get('stores')
+    if stores is None:
         return {}
 
-    item = channel.get('item')
-    location = channel.get('location')
-    units = channel.get('units')
-    if (location is None) or (item is None) or (units is None):
+    physical_stock = stores.get('physical_stock')
+    #units = channel.get('units')
+    if (physical_stock is False):
         return {}
 
-    condition = item.get('condition')
-    if condition is None:
+    name = stores.get('name')
+    if name is None:
         return {}
 
     # print(json.dumps(item, indent=4))
 
-    speech = "Today the weather in " + location.get('city') + ": " + condition.get('text') + \
-             ", And the temperature is " + condition.get('temp') + " " + units.get('temperature')
+    speech = "Stocks available in " + stores.get('locality_name') + "are in: " + stores.get('name')
 
     print("Response:")
     print(speech)
