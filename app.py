@@ -62,26 +62,22 @@ def processRequest(req):
     return res
 
 
-def makeYqlQuery(req):
-    result = req.get("result")
-    parameters = result.get("parameters")
-    city = parameters.get("geo-city")
-    if city is None:
-        return None
+#def makeYqlQuery(req):
+#   result = req.get("result")
+#    parameters = result.get("parameters")
+#   city = parameters.get("geo-city")
+#   if city is None:
+#       return None
 
-    return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "')"
+#   return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "')"
 
 
 def makeWebhookResult(data):
     provinces_eci = data.get('provinces_eci')
-    if province_eci is None:
+    if provinces_eci is None:
         return {}
 
-    province_name = query.get('province_name')
-    if province_name is None:
-        return {}
-
-    stores = result.get('stores')
+    stores = provinces_eci.get('stores')
     if stores is None:
         return {}
 
@@ -96,7 +92,7 @@ def makeWebhookResult(data):
 
     # print(json.dumps(item, indent=4))
 
-    speech = "Stocks available in " + stores.get('locality_name') + "are in: " + stores.get('name')
+    speech = "Stock available in " + stores.get('locality_name') + "are in: " + stores.get('name')
 
     print("Response:")
     print(speech)
