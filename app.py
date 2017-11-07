@@ -30,6 +30,9 @@ from urllib.error import HTTPError
 
 import json
 import os
+import requests
+
+from addict import Dict
 
 from flask import Flask
 from flask import request
@@ -58,9 +61,11 @@ def processRequest(req):
     if req.get("result").get("action") != "eciStock":
        return {}
     baseurl = "https://api.elcorteingles.es/ecommerce/centres?eciReference=001008432115270003&locale=es_ES&provinceECI=28"
+    
     result = urlopen(baseurl).read()
     data = json.loads(result)
-    res = makeWebhookResult(data)
+    res = makeWebhookResult(baseurl)
+
     return res
 
 #def makeYqlQuery(req):
@@ -74,14 +79,14 @@ def processRequest(req):
 
 
 def makeWebhookResult(data):
-    provinces_eci = data.get('provinces_eci')[0]
+    #provinces_eci = data.get('provinces_eci')[0]
        
 
     #name = stores.get('name')
     #if name is None:
     #    return {}
     # print(json.dumps(item, indent=4))
-    speech = "Now you have signed a contract with A team! in " + provinces_eci.get('name')
+    speech =  baseurl
     print("Response:")
     print(speech)
 
