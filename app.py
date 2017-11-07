@@ -32,7 +32,7 @@ from flask import make_response
 app = Flask(__name__)
 
 
-@app.route('https://secure-island-37034.herokuapp.com/webhook', methods=['POST'])
+@app.route('/webhook', methods=['POST'])
 def webhook():
     req = request.get_json(silent=True, force=True)
 
@@ -51,12 +51,12 @@ def webhook():
 def processRequest(req):
     if req.get("result").get("action") != "eciStock":
         return {}
-    baseurl = "http://api.elcorteingles.es/ecommerce/centres?eciReference=001008432115270003&locale=es_ES&provinceECI=28"
+    baseurl = "https://api.elcorteingles.es/ecommerce/centres?eciReference=001008432115270003&locale=es_ES&provinceECI=28"
     #yql_query = makeYqlQuery(req)
     #if yql_query is None:
     #    return {}
-    yql_url = baseurl
-    result = urlopen(yql_url).read()
+    #yql_url = baseurl
+    result = urlopen(baseurl).read()
     data = json.loads(result)
     res = makeWebhookResult(data)
     return res
@@ -83,12 +83,12 @@ def makeWebhookResult(data):
 
     physical_stock = stores.get('physical_stock')
     #units = channel.get('units')
-    if (physical_stock is False):
-        return {}
+    #if (physical_stock is False):
+    #    return {}
 
-    name = stores.get('name')
-    if name is None:
-        return {}
+    #name = stores.get('name')
+    #if name is None:
+    #    return {}
 
     # print(json.dumps(item, indent=4))
 
