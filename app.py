@@ -38,11 +38,10 @@ from flask import make_response
 # Flask app should start in global layout
 app = Flask(__name__)
 
-
-#@app.route('/webhook', methods=['GET'])
+@app.route('/webhook')
 def webhook():
+    
     req = request.get_json(silent=True, force=True)
-
     print("Request:")
     print(json.dumps(req, indent=4))
 
@@ -56,8 +55,8 @@ def webhook():
 
 
 def processRequest(req):
-    if req.get("result").get("action") != "eciStock":
-        return {}
+    #if req.get("result").get("action") != "eciStock":
+    #   return {}
     baseurl = "https://api.elcorteingles.es/ecommerce/centres?eciReference=001008432115270003&locale=es_ES&provinceECI=28"
     #yql_query = makeYqlQuery(req)
     #if yql_query is None:
@@ -81,12 +80,12 @@ def processRequest(req):
 
 def makeWebhookResult(data):
     provinces_eci = data.get('provinces_eci')
-    if provinces_eci is None:
-        return {}
+    #if provinces_eci is None:
+    #    return {}
 
     stores = provinces_eci.get('stores')
-    if stores is None:
-        return {}
+    #if stores is None:
+    #    return {}
 
     #physical_stock = stores.get('physical_stock')
     #units = channel.get('units')
