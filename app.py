@@ -86,7 +86,7 @@ def makeWebhookResult(data):
     #if name is None:
     #    return {}
     # print(json.dumps(item, indent=4))
-    speech =  baseurl
+    speech =  data
     print("Response:")
     print(speech)
 
