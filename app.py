@@ -83,7 +83,7 @@ def makeWebhookResult(data):
     #if provinces_eci is None:
     #    return {}
 
-    stores = provinces_eci.get('stores')
+    stores = provinces_eci.get('stores')[0]
     #if stores is None:
     #    return {}
 
