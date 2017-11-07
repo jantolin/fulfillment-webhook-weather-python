@@ -39,7 +39,7 @@ from flask import make_response
 app = Flask(__name__)
 
 
-@app.route('/webhook', methods=['GET'])
+#@app.route('/webhook', methods=['GET'])
 def webhook():
     req = request.get_json(silent=True, force=True)
 
@@ -88,7 +88,7 @@ def makeWebhookResult(data):
     if stores is None:
         return {}
 
-    physical_stock = stores.get('physical_stock')
+    #physical_stock = stores.get('physical_stock')
     #units = channel.get('units')
     #if (physical_stock is False):
     #    return {}
