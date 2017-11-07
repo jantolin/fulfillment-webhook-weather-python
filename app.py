@@ -13,6 +13,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Nov 06 14:22:09 2017
+
+@author: 66472572
+"""
+
 from __future__ import print_function
 from future.standard_library import install_aliases
 install_aliases()
@@ -32,7 +39,7 @@ from flask import make_response
 app = Flask(__name__)
 
 
-@app.route('/webhook', methods=['POST'])
+@app.route('/webhook', methods=['GET'])
 def webhook():
     req = request.get_json(silent=True, force=True)
 
