@@ -74,7 +74,14 @@ def processRequest(req):
 
 
 def makeWebhookResult(data):
-    speech = "Now you have signed a contract with A team!"
+    provinces_eci = data.get('provinces_eci')
+       
+
+    #name = stores.get('name')
+    #if name is None:
+    #    return {}
+    # print(json.dumps(item, indent=4))
+    speech = "Now you have signed a contract with A team! in " + provinces_eci.get('name')
     print("Response:")
     print(speech)
 
