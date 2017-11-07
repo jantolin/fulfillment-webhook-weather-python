@@ -74,7 +74,7 @@ def processRequest(req):
 
 
 def makeWebhookResult(data):
-    provinces_eci = data.get('provinces_eci')
+    provinces_eci = data.get('provinces_eci')[0]
        
 
     #name = stores.get('name')
