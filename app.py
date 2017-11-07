@@ -55,47 +55,45 @@ def webhook():
 
 
 def processRequest(req):
-    #if req.get("result").get("action") != "eciStock":
-    #   return {}
-    baseurl = "https://api.elcorteingles.es/ecommerce/centres?eciReference=001008432115270003&locale=es_ES&provinceECI=28"
-    #yql_query = makeYqlQuery(req)
-    #if yql_query is None:
-    #    return {}
-    #yql_url = baseurl
-    result = urlopen(baseurl).read()
+    if req.get("result").get("action") != "eciStock":
+       return {}
+    baseurl = "https://api.elcorteingles.es/ecommerce/centres?"
+    yql_query = makeYqlQuery(req)
+    if yql_query is None:
+        return {}
+    yql_url = baseurl + urlencode({'': yql_query})
+    result = urlopen(yql_url).read()
     data = json.loads(result)
     res = makeWebhookResult(data)
     return res
 
 
-#def makeYqlQuery(req):
-#   result = req.get("result")
-#    parameters = result.get("parameters")
-#   city = parameters.get("geo-city")
-#   if city is None:
-#       return None
+def makeYqlQuery(req):
+   result = req.get("result")
+   parameters = result.get("parameters")
+   referencia = parameters.get("referencia")
+   if referencia is None:
+       return None
 
-#   return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "')"
+   return "eciReference=001008432115270003&locale=es_ES&provinceECI=28"
 
 
 def makeWebhookResult(data):
     provinces_eci = data.get('provinces_eci')
-    #if provinces_eci is None:
-    #    return {}
+    if provinces_eci is None:
+        return {}
 
-    stores = provinces_eci.get('stores')[0]
-    #if stores is None:
-    #    return {}
+    stores = provinces_eci.get('stores')
+    if stores is None:
+        return {}
 
-    #physical_stock = stores.get('physical_stock')
-    #units = channel.get('units')
-    #if (physical_stock is False):
-    #    return {}
+    physical_stock = stores.get('physical_stock')
+    if (physical_stock is False):
+        return {}
 
     #name = stores.get('name')
     #if name is None:
     #    return {}
-
     # print(json.dumps(item, indent=4))
 
     speech = "Stock available in " + stores.get('locality_name') + "are in: " + stores.get('name')
