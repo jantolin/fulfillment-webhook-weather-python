@@ -66,11 +66,11 @@ def processRequest(req):
     if req.get("result").get("action") != "eciStock":
        return {}
     #Extrae los parametros de la conversacion
-    #result = req.get("result")
-    #parameters = result.get("parameters")
-    #city = parameters.get("referencia")
+    result = req.get("result")
+    parameters = result.get("parameters")
+    referencia = parameters.get("referencia")
     
-    url = "https://api.elcorteingles.es/ecommerce/centres?eciReference=001008432115270003&locale=es_ES&provinceECI=08"
+    url = "https://api.elcorteingles.es/ecommerce/centres?eciReference=" + referencia + "&locale=es_ES&provinceECI=08"
     response = urlopen(url)
     data_response = response.read().decode("utf-8")
     
