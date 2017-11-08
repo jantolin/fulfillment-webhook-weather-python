@@ -26,7 +26,7 @@ install_aliases()
 
 
 from urllib.parse import urlparse, urlencode
-from urllib.request import urlopen, Request
+#from urllib.request import urlopen, Request
 from urllib.error import HTTPError
 
 import json
@@ -35,7 +35,12 @@ from flask import Flask
 from flask import request
 from flask import make_response
 
-from urllib2 import urlopen
+try:
+    # For Python 3.0 and later
+    from urllib.request import urlopen, Request
+except ImportError:
+    # Fall back to Python 2's urllib2
+    from urllib2 import urlopen
 
 # Flask app should start in global layout
 app = Flask(__name__)
