@@ -69,8 +69,18 @@ def processRequest(req):
     result = req.get("result")
     parameters = result.get("parameters")
     referencia = parameters.get("referencia")
+    city = parameters.get("geo-city")
     
-    url = "https://api.elcorteingles.es/ecommerce/centres?eciReference=" + referencia + "&locale=es_ES&provinceECI=08"
+    if city == 'Madrid':
+        codecity='28'
+    if city =='Barcelona':
+        codecity='08'
+    if city =='Alicante':
+        codecity='03'
+    else:
+        codecity='28'
+    
+    url = "https://api.elcorteingles.es/ecommerce/centres?eciReference="+ referencia + "&locale=es_ES&provinceECI=" + codecity
     response = urlopen(url)
     data_response = response.read().decode("utf-8")
     
