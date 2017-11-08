@@ -24,22 +24,22 @@ from __future__ import print_function
 from future.standard_library import install_aliases
 install_aliases()
 
+
 from urllib.parse import urlparse, urlencode
 from urllib.request import urlopen, Request
 from urllib.error import HTTPError
 
 import json
 import os
-import requests
-
-from addict import Dict
-
 from flask import Flask
 from flask import request
 from flask import make_response
 
+from urllib2 import urlopen
+
 # Flask app should start in global layout
 app = Flask(__name__)
+
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
@@ -68,6 +68,7 @@ def processRequest(req):
     #result = urlopen(baseurl).read()
     #data = json.loads(result)
     #res = makeWebhookResult(baseurl)
+    
     res = makeWebhookResult(json.loads(data_response))
     return res
 
@@ -96,6 +97,7 @@ def makeWebhookResult(data):
 
     cityname = stores.get('locality_name')
     storename = stores.get('name')
+
     speech = "Shopping Centers with stock in " + cityname + " are: " + storename
     print("Response:")
     print(speech)
