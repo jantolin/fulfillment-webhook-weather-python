@@ -96,8 +96,6 @@ def makeWebhookResult(data):
 
     cityname = stores.get('locality_name')
     storename = stores.get('name')
-    print (storename)
-
     speech = "Shopping Centers with stock in " + cityname + " are: " + storename
     print("Response:")
     print(speech)
