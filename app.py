@@ -80,7 +80,12 @@ def processRequest(req):
     else:
         codecity='28'
     
-    url = "https://api.elcorteingles.es/ecommerce/centres?eciReference="+ referencia + "&locale=es_ES&provinceECI=" + codecity
+    if referencia =='':
+        codereferencia = '017730841131120'
+    else:
+        codereferencia = referencia
+        
+    url = "https://api.elcorteingles.es/ecommerce/centres?eciReference="+ codereferencia + "&locale=es_ES&provinceECI=" + codecity
     response = urlopen(url)
     data_response = response.read().decode("utf-8")
     
