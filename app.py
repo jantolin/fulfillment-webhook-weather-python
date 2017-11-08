@@ -60,12 +60,15 @@ def webhook():
 def processRequest(req):
     if req.get("result").get("action") != "eciStock":
        return {}
-    baseurl = "https://api.elcorteingles.es/ecommerce/centres?eciReference=001008432115270003&locale=es_ES&provinceECI=28"
     
-    result = urlopen(baseurl).read()
-    data = json.loads(result)
-    res = makeWebhookResult(baseurl)
-
+    url = "https://api.elcorteingles.es/ecommerce/centres?eciReference=001008432115270003&locale=es_ES&provinceECI=28"
+    response = urlopen(url)
+    data_response = response.read().decode("utf-8")
+    
+    #result = urlopen(baseurl).read()
+    #data = json.loads(result)
+    #res = makeWebhookResult(baseurl)
+    res = makeWebhookResult(json.loads(data_response))
     return res
 
 #def makeYqlQuery(req):
@@ -86,7 +89,16 @@ def makeWebhookResult(data):
     #if name is None:
     #    return {}
     # print(json.dumps(item, indent=4))
-    speech =  data
+    
+
+    provinces_eci = data.get('provinces_eci')[0]
+    stores = provinces_eci.get('stores')[0]
+
+    cityname = stores.get('locality_name')
+    storename = stores.get('name')
+    print (storename)
+
+    speech = "Shopping Centers with stock in " + cityname + " are: " + storename
     print("Response:")
     print(speech)
 
@@ -105,3 +117,4 @@ if __name__ == '__main__':
     print("Starting app on port %d" % port)
 
     app.run(debug=False, port=port, host='0.0.0.0')
+    
