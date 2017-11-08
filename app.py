@@ -68,7 +68,7 @@ def processRequest(req):
     #Extrae los parametros de la conversacion
     result = req.get("result")
     parameters = result.get("parameters")
-    referencia = parameters.get("referencia")
+    #referencia = parameters.get("referencia")
     city = parameters.get("geo-city")
     
     if city == 'Madrid':
@@ -80,13 +80,13 @@ def processRequest(req):
     else:
         codecity='28'
     
-    if referencia =='':
-        codereferencia = '017730841131120'
-    else:
-        codereferencia = referencia
+    #if referencia =='':
+    #    codereferencia = '017730841131120'
+    #else:
+    #    codereferencia = referencia
         
       
-    url = "https://api.elcorteingles.es/ecommerce/centres?eciReference="+ codereferencia + "&locale=es_ES&provinceECI=" + codecity
+    url = "https://api.elcorteingles.es/ecommerce/centres?eciReference=017730841131120&locale=es_ES&provinceECI=" + codecity
     response = urlopen(url)
     data_response = response.read().decode("utf-8")
     
