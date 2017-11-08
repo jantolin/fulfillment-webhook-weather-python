@@ -73,9 +73,9 @@ def processRequest(req):
     
     if city == 'Madrid':
         codecity='28'
-    if city =='Barcelona':
+    elif city =='Barcelona':
         codecity='08'
-    if city =='Alicante':
+    elif city =='Alicante':
         codecity='03'
     else:
         codecity='28'
