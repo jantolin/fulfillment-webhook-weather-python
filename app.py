@@ -67,8 +67,8 @@ def processRequest(req):
        return {}
     #Extrae los parametros de la conversacion
     result = req.get("result")
-    #parameters = result.get("parameters")
-    #referencia = parameters.get("referencia")
+    parameters = result.get("parameters")
+    referencia = parameters.get("referencia")
     #city = parameters.get("geo-city")
     
     #if city == 'Madrid':
