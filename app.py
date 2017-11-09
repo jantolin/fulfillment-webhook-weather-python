@@ -70,44 +70,20 @@ def processRequest(req):
     parameters = result.get("parameters")
     referencia = parameters.get("referencia")
     
-    url = "https://api.elcorteingles.es/ecommerce/centres?eciReference=001008432115270003&locale=es_ES&provinceECI=28"
-    response = urlopen(url)
+    baseurl = "https://api.elcorteingles.es/ecommerce/centres?eciReference=001008432115270003&locale=es_ES&provinceECI=28"
+    response = urlopen(baseurl)
     data_response = response.read().decode("utf-8")
-    
-    #result = urlopen(baseurl).read()
-    #data = json.loads(result)
-    #res = makeWebhookResult(baseurl)
-    
     res = makeWebhookResult(json.loads(data_response))
     return res
 
-#def makeYqlQuery(req):
-#    result = req.get("result")
-#    parameters = result.get("parameters")
-#    city = parameters.get("geo-city")
-#    if city is None:
-#        return None
-
-#    return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "')"
-
-
 def makeWebhookResult(data):
-    #provinces_eci = data.get('provinces_eci')[0]
-       
-
-    #name = stores.get('name')
-    #if name is None:
-    #    return {}
-    # print(json.dumps(item, indent=4))
-    
-
     provinces_eci = data.get('provinces_eci')[0]
     stores = provinces_eci.get('stores')[0]
-
     cityname = stores.get('locality_name')
+    
     centros =""
     for i in provinces_eci['stores']:
-    centros = i['name'] + ", " + centros
+        centros = i['name'] + ", " + centros
 
     speech = "Shopping Centers with stock in " + cityname + " are: " + centros
     print("Response:")
