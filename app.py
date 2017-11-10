@@ -82,12 +82,18 @@ def makeWebhookResult(data):
     cityname = stores.get('locality_name')
     
     centros =""
+    centros2 = ""
+    num = 0
+    num2 = 0
     for i in provinces_eci['stores']:
         centros = i['name'] + ", " + centros
+        num = num + 1
+        if i['physical_stock'] is True:
+            centros2 = i['name'] + ", " + centros2
+            num2 = num2 + 1
 
-    speech = "Shopping Centers with stock in " + cityname + " are: " + centros
-    print("Response:")
-    print(speech)
+    speech = "There are " + str(num2) + " of " + str(num) + " Shopping Centers with stock for this product in  " + cityname + ": " + centros2
+    print (speech)
 
     return {
         "speech": speech,
