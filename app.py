@@ -92,7 +92,7 @@ def makeWebhookResult(data):
             centros2 = i['name'] + ", " + centros2
             num2 = num2 + 1
 
-    speech = "Existe stock del producto en el canal digital y en " + str(num2) + " de " + str(num) + " centros comerciales del producto cerca de su ubicación en  " + cityname + ": " + centros2
+    speech = "Existe stock del producto en el canal digital y en " + str(num2) + " de " + str(num) + " centros comerciales en su ubicación en  " + cityname + ". Los centros son:  " + centros2
     print (speech)
 
     return {
